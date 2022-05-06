@@ -1,24 +1,27 @@
-<div th:switch="${users.size() > 0}">
-
-    <h2 th:case="false">No users yet!</h2>
-
-    <div th:case="true">
+<div>
+    <h2 th:if="${#lists.isEmpty(users)}">No users yet!</h2>
+    <div th:if="${not #lists.isEmpty(users)}">
         <h2>Users</h2>
         <table>
             <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Surname</th>
-                <th>email</th>
+                <th>Email</th>
+                <th>Username</th>
+
                 <th></th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
                 <td th:text="${user.name}"></td>
                 <td th:text="${user.surname}"></td>
                 <td th:text="${user.email}"></td>
+                <td th:text="${user.username}"></td>
                 <td><a th:href="@{/edit/{id}(id=${user.id})}">Edit</a></td>
                 <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>
             </tr>
@@ -26,5 +29,7 @@
         </table>
     </div>
 
-    <p><a href="/signup">Add a new user</a></p>
+    <p><a href="/registration">Add a new user</a></p>
+    <p><a href="/logout">Logout</a></p>
+
 </div>
